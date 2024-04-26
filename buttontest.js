@@ -1,16 +1,16 @@
 class CustomButton extends HTMLElement {
     constructor() {
-        super(); // Aufrufen des Konstruktors der Basisklasse HTMLElement
-        this.attachShadow({ mode: 'open' }); // Initialisieren des Shadow DOM
+        super();
+        this.attachShadow({ mode: 'open' });
 
-        // Erstellen und Anfügen der internen HTML-Struktur
+        // Erstellen der internen HTML-Struktur
         const buttonBox = document.createElement('a');
-        buttonBox.setAttribute('href', '');
+        buttonBox.setAttribute('href', ''); // Standard-Link setzen
         buttonBox.classList.add('button-box');
 
         const button = document.createElement('div');
         button.classList.add('button');
-        button.textContent = 'Text'; // oder this.getAttribute('text') um benutzerdefinierte Texte zu erlauben
+        button.textContent = this.getAttribute('text') || 'Text'; // Verwenden des Attributs 'text' oder Standardwert
 
         buttonBox.appendChild(button);
         this.shadowRoot.appendChild(buttonBox);
@@ -42,6 +42,7 @@ class CustomButton extends HTMLElement {
         this.setupEventListeners(buttonBox, button);
     }
 
+    // Event-Listener-Setup-Methode
     setupEventListeners(buttonBox, button) {
         // Funktion zum Skalieren des Buttons
         const scaleButton = (scale) => {
@@ -63,6 +64,12 @@ class CustomButton extends HTMLElement {
         }, { passive: false });
 
         buttonBox.addEventListener('touchend', () => scaleButton(1));
+    }
+
+    // Setter-Methode für das href-Attribut
+    set href(value) {
+        const buttonBox = this.shadowRoot.querySelector('.button-box');
+        buttonBox.setAttribute('href', value);
     }
 }
 
