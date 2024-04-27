@@ -23,19 +23,20 @@ class CustomButton extends HTMLElement {
                 -ms-user-select: none;
                 user-select: none;
                 -webkit-tap-highlight-color: transparent;
+
+            .button-box {
+                display: flex;
+                flex-direction: column;
+                text-decoration: none;
             }
+
             .button {
                 padding: var(--button-padding, 10px 30px);
                 background-color: var(--button-bg-color, #f4f4f4);
-                text-decoration: none;
                 color: var(--button-text-color, #222222);
                 border-radius: var(--button-radius, 999px);
                 transition: transform 0.5s ease;
 
-            }
-            .button-box {
-                display: flex;
-                flex-direction: column;
             }
         `;
         this.shadowRoot.appendChild(style);
