@@ -26,7 +26,7 @@ class CustomButton extends HTMLElement {
             }
             .button {
                 padding: 10px 30px;
-                background-color: #f2f2f2;
+                background-color: #000fff;
                 border-radius: 999px;
                 transition: transform 0.5s ease;
             }
@@ -78,6 +78,10 @@ class CustomButton extends HTMLElement {
             isTouchStart = true;
             scaleButton(0.9);
             event.preventDefault(); // Unterdrücke das Standardverhalten des Touch-Events
+        });
+
+        buttonBox.addEventListener('touchmove', (event) => {
+            event.preventDefault(); // Unterdrücke das Standardverhalten des Touch-Events, um die Linkvorschau zu verhindern
         });
 
         buttonBox.addEventListener('touchend', () => {
