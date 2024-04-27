@@ -9,7 +9,7 @@ class CustomButton extends HTMLElement {
 
         const button = document.createElement('div');
         button.classList.add('button');
-        button.textContent = this.getAttribute('text') || 'Text'; // Verwenden des Attributs 'text' oder Standardwert
+        button.textContent = this.getAttribute('text') || 'Button'; // Standardwert "Button" setzen
 
         buttonBox.appendChild(button);
         this.shadowRoot.appendChild(buttonBox);
@@ -26,7 +26,7 @@ class CustomButton extends HTMLElement {
             }
             .button {
                 padding: 10px 30px;
-                background-color: #f6f6f6;
+                background-color: #f2f2f2;
                 border-radius: 999px;
                 transition: transform 0.5s ease;
             }
@@ -43,7 +43,7 @@ class CustomButton extends HTMLElement {
 
     // Überwachen von Änderungen an benutzerdefinierten Attributen
     static get observedAttributes() {
-        return ['href'];
+        return ['href', 'text'];
     }
 
     // Reagieren auf Änderungen an benutzerdefinierten Attributen
@@ -51,6 +51,9 @@ class CustomButton extends HTMLElement {
         if (name === 'href') {
             const buttonBox = this.shadowRoot.querySelector('.button-box');
             buttonBox.setAttribute('href', newValue);
+        } else if (name === 'text') {
+            const button = this.shadowRoot.querySelector('.button');
+            button.textContent = newValue;
         }
     }
 
