@@ -40,6 +40,7 @@ class CustomButton extends HTMLElement {
                 background-color: var(--button-bg-color, #f4f4f4);
                 color: var(--button-text-color, #222222);
                 border-radius: var(--button-radius, 999px);
+                will-change: transform;
                 transition: transform 0.5s ease;
             }
         `;
