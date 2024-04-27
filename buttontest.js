@@ -36,7 +36,7 @@ class CustomButton extends HTMLElement {
                 color: var(--button-text-color, #222222);
                 border-radius: var(--button-radius, 999px);
                 transition: transform 0.5s ease;
-
+                text-decoration: none;
             }
         `;
         this.shadowRoot.appendChild(style);
