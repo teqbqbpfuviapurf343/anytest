@@ -5,7 +5,6 @@ class CustomButton extends HTMLElement {
 
         // Erstellen der internen HTML-Struktur
         const buttonBox = document.createElement('a');
-        buttonBox.setAttribute('href', ''); // Standard-Link setzen
         buttonBox.classList.add('button-box');
 
         const button = document.createElement('div');
@@ -27,7 +26,7 @@ class CustomButton extends HTMLElement {
             }
             .button {
                 padding: 10px 30px;
-                background-color: #f2f2f2;
+                background-color: #72f2f2;
                 border-radius: 999px;
                 transition: transform 0.5s ease;
             }
@@ -37,39 +36,19 @@ class CustomButton extends HTMLElement {
             }
         `;
         this.shadowRoot.appendChild(style);
-
-        // Hinzufügen von Event-Listenern
-        this.setupEventListeners(buttonBox, button);
     }
 
-    // Event-Listener-Setup-Methode
-    setupEventListeners(buttonBox, button) {
-        // Funktion zum Skalieren des Buttons
-        const scaleButton = (scale) => {
-            button.style.transform = `scale(${scale})`;
-        };
-
-        // Event-Listener für Mouseenter und Focusin
-        buttonBox.addEventListener('mouseenter', () => scaleButton(0.9));
-        buttonBox.addEventListener('focusin', () => scaleButton(0.9));
-
-        // Event-Listener für Mouseleave und Focusout
-        buttonBox.addEventListener('mouseleave', () => scaleButton(1));
-        buttonBox.addEventListener('focusout', () => scaleButton(1));
-
-        // Touch-Event-Listener hinzufügen
-        buttonBox.addEventListener('touchstart', (event) => {
-            scaleButton(0.9);
-            event.preventDefault();
-        }, { passive: false });
-
-        buttonBox.addEventListener('touchend', () => scaleButton(1));
+    // Überwachen von Änderungen an benutzerdefinierten Attributen
+    static get observedAttributes() {
+        return ['href'];
     }
 
-    // Setter-Methode für das href-Attribut
-    set href(value) {
-        const buttonBox = this.shadowRoot.querySelector('.button-box');
-        buttonBox.setAttribute('href', value);
+    // Reagieren auf Änderungen an benutzerdefinierten Attributen
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'href') {
+            const buttonBox = this.shadowRoot.querySelector('.button-box');
+            buttonBox.setAttribute('href', newValue);
+        }
     }
 }
 
