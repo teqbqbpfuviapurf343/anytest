@@ -5,8 +5,8 @@ class CustomButton extends HTMLElement {
 
         // Erstellen der internen HTML-Struktur
         const buttonBox = document.createElement('a');
+        buttonBox.setAttribute('href', ''); // Standard-Link setzen
         buttonBox.classList.add('button-box');
-        buttonBox.setAttribute('href', '#'); // Setze eine Standard-URL
 
         const button = document.createElement('div');
         button.classList.add('button');
@@ -32,16 +32,8 @@ class CustomButton extends HTMLElement {
                 transition: transform 0.5s ease;
             }
             .button-box {
-                display: inline-block; /* Ändere die Anzeige auf inline-block */
-                position: relative; /* Setze die Position auf relativ */
-            }
-            .button-box::before {
-                content: ''; /* Füge ein Pseudoelement hinzu, um eine Mindestgröße zu erzwingen */
-                position: absolute; /* Setze die Position auf absolut */
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+                display: flex;
+                flex-direction: column;
             }
         `;
         this.shadowRoot.appendChild(style);
@@ -72,11 +64,6 @@ class CustomButton extends HTMLElement {
         }, { passive: false });
 
         buttonBox.addEventListener('touchend', () => scaleButton(1));
-    }
-
-    // Getter-Methode für das href-Attribut
-    get href() {
-        return this.getAttribute('href');
     }
 
     // Setter-Methode für das href-Attribut
