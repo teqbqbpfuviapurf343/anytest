@@ -5,7 +5,6 @@ class CustomButton extends HTMLElement {
 
         // Erstellen der internen HTML-Struktur
         const buttonBox = document.createElement('a');
-        buttonBox.setAttribute('href', ''); // Standard-Link setzen
         buttonBox.classList.add('button-box');
 
         const button = document.createElement('div');
@@ -64,6 +63,11 @@ class CustomButton extends HTMLElement {
         }, { passive: false });
 
         buttonBox.addEventListener('touchend', () => scaleButton(1));
+    }
+
+    // Getter-Methode für das href-Attribut
+    get href() {
+        return this.getAttribute('href');
     }
 
     // Setter-Methode für das href-Attribut
