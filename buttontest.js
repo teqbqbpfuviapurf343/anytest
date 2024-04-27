@@ -26,7 +26,7 @@ class CustomButton extends HTMLElement {
             }
             .button {
                 padding: 10px 30px;
-                background-color: #72f2f2;
+                background-color: #f6f6f6;
                 border-radius: 999px;
                 transition: transform 0.5s ease;
             }
@@ -36,6 +36,9 @@ class CustomButton extends HTMLElement {
             }
         `;
         this.shadowRoot.appendChild(style);
+
+        // Hinzufügen von Event-Listenern
+        this.setupEventListeners(buttonBox, button);
     }
 
     // Überwachen von Änderungen an benutzerdefinierten Attributen
@@ -49,6 +52,30 @@ class CustomButton extends HTMLElement {
             const buttonBox = this.shadowRoot.querySelector('.button-box');
             buttonBox.setAttribute('href', newValue);
         }
+    }
+
+    // Event-Listener-Setup-Methode
+    setupEventListeners(buttonBox, button) {
+        // Funktion zum Skalieren des Buttons
+        const scaleButton = (scale) => {
+            button.style.transform = `scale(${scale})`;
+        };
+
+        // Event-Listener für Mouseenter und Focusin auf das buttonBox-Element
+        buttonBox.addEventListener('mouseenter', () => scaleButton(0.9));
+        buttonBox.addEventListener('focusin', () => scaleButton(0.9));
+
+        // Event-Listener für Mouseleave und Focusout auf das buttonBox-Element
+        buttonBox.addEventListener('mouseleave', () => scaleButton(1));
+        buttonBox.addEventListener('focusout', () => scaleButton(1));
+
+        // Touch-Event-Listener hinzufügen
+        buttonBox.addEventListener('touchstart', (event) => {
+            scaleButton(0.9);
+            event.preventDefault();
+        }, { passive: false });
+
+        buttonBox.addEventListener('touchend', () => scaleButton(1));
     }
 }
 
