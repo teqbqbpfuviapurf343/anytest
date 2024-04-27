@@ -26,7 +26,7 @@ class CustomButton extends HTMLElement {
             }
             .button {
                 padding: 10px 30px;
-                background-color: #000fff;
+                background-color: #f2f2f2;
                 border-radius: 999px;
                 transition: transform 0.5s ease;
             }
@@ -81,7 +81,18 @@ class CustomButton extends HTMLElement {
         });
 
         buttonBox.addEventListener('touchmove', (event) => {
-            event.preventDefault(); // Unterdrücke das Standardverhalten des Touch-Events, um die Linkvorschau zu verhindern
+            if (isTouchStart) {
+                // Überprüfe, ob sich der Finger innerhalb des Buttons befindet
+                const rect = buttonBox.getBoundingClientRect();
+                const x = event.touches[0].clientX;
+                const y = event.touches[0].clientY;
+                if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+                    // Finger bewegt sich außerhalb des Buttons, setze auf initialen Scale
+                    scaleButton(1);
+                    isTouchStart = false;
+                }
+                event.preventDefault(); // Unterdrücke das Standardverhalten des Touch-Events, um die Linkvorschau zu verhindern
+            }
         });
 
         buttonBox.addEventListener('touchend', () => {
