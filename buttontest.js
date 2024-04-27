@@ -17,6 +17,12 @@ class CustomButton extends HTMLElement {
         // Anfügen der internen CSS-Stile
         const style = document.createElement('style');
         style.textContent = `
+
+            a {
+                text-decoration: none;
+            }
+
+
             .button-box, .button {
                 -webkit-user-select: none;
                 -moz-user-select: none;
@@ -27,7 +33,6 @@ class CustomButton extends HTMLElement {
             .button-box {
                 display: flex;
                 flex-direction: column;
-                text-decoration: none;
             }
 
             .button {
@@ -36,7 +41,6 @@ class CustomButton extends HTMLElement {
                 color: var(--button-text-color, #222222);
                 border-radius: var(--button-radius, 999px);
                 transition: transform 0.5s ease;
-                text-decoration: none;
             }
         `;
         this.shadowRoot.appendChild(style);
