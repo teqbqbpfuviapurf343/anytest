@@ -25,11 +25,13 @@ class CustomButton extends HTMLElement {
                 -webkit-tap-highlight-color: transparent;
             }
             .button {
-                padding: 10px 30px;
-                background-color: #ffffff; /* Standard-Hintergrundfarbe */
-                color: #000; /* Standard-Textfarbe */
-                border-radius: 999px;
+                padding: var(--button-padding, 10px 30px);
+                background-color: var(--button-bg-color, #f4f4f4);
+                text-decoration: none;
+                color: var(--button-text-color, #222222);
+                border-radius: var(--button-radius, 999px);
                 transition: transform 0.5s ease;
+
             }
             .button-box {
                 display: flex;
@@ -83,16 +85,14 @@ class CustomButton extends HTMLElement {
 
         buttonBox.addEventListener('touchmove', (event) => {
             if (isTouchStart) {
-                // Überprüfe, ob sich der Finger innerhalb des Buttons befindet
                 const rect = buttonBox.getBoundingClientRect();
                 const x = event.touches[0].clientX;
                 const y = event.touches[0].clientY;
                 if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
-                    // Finger bewegt sich außerhalb des Buttons, setze auf initialen Scale
                     scaleButton(1);
                     isTouchStart = false;
                 }
-                event.preventDefault(); // Unterdrücke das Standardverhalten des Touch-Events, um die Linkvorschau zu verhindern
+                event.preventDefault(); // Unterdrücke das Standardverhalten des Touch-Events
             }
         });
 
@@ -100,14 +100,12 @@ class CustomButton extends HTMLElement {
             if (isTouchStart) {
                 isTouchStart = false;
                 scaleButton(1);
-                // Öffne den Link, wenn der Finger vom Display gelöst wird
                 window.location.href = buttonBox.getAttribute('href');
             }
         });
 
         // Klick-Event-Listener hinzufügen
         buttonBox.addEventListener('click', (event) => {
-            // Verhindere, dass der Link geöffnet wird, wenn es sich um ein Touch-Gerät handelt
             if (!isTouchStart) {
                 event.preventDefault();
                 window.location.href = buttonBox.getAttribute('href');
