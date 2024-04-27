@@ -26,7 +26,7 @@ class CustomButton extends HTMLElement {
             }
             .button {
                 padding: 10px 30px;
-                background-color: #f2f200;
+                background-color: #e362af;
                 border-radius: 999px;
                 transition: transform 0.5s ease;
             }
@@ -73,12 +73,29 @@ class CustomButton extends HTMLElement {
         buttonBox.addEventListener('focusout', () => scaleButton(1));
 
         // Touch-Event-Listener hinzufügen
-        buttonBox.addEventListener('touchstart', (event) => {
+        let isTouchStart = false;
+        buttonBox.addEventListener('touchstart', () => {
+            isTouchStart = true;
             scaleButton(0.9);
-            event.preventDefault();
-        }, { passive: false });
+        });
 
-        buttonBox.addEventListener('touchend', () => scaleButton(1));
+        buttonBox.addEventListener('touchend', () => {
+            if (isTouchStart) {
+                isTouchStart = false;
+                scaleButton(1);
+                // Öffne den Link, wenn der Finger vom Display gelöst wird
+                window.location.href = buttonBox.getAttribute('href');
+            }
+        });
+
+        // Klick-Event-Listener hinzufügen
+        buttonBox.addEventListener('click', (event) => {
+            // Verhindere, dass der Link geöffnet wird, wenn es sich um ein Touch-Gerät handelt
+            if (!isTouchStart) {
+                event.preventDefault();
+                window.location.href = buttonBox.getAttribute('href');
+            }
+        });
     }
 }
 
