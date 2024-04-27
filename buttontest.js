@@ -26,7 +26,8 @@ class CustomButton extends HTMLElement {
             }
             .button {
                 padding: 10px 30px;
-                background-color: #f2f2f2;
+                background-color: #ffffff; /* Standard-Hintergrundfarbe */
+                color: #000; /* Standard-Textfarbe */
                 border-radius: 999px;
                 transition: transform 0.5s ease;
             }
